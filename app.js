@@ -1,6 +1,8 @@
+'use strict';
 console.log("Let's get this party started!");
 
 /**
+ * pseudocode:
  * event listener on submit button
  * grab search input
  * create parameters object
@@ -9,6 +11,7 @@ console.log("Let's get this party started!");
  * put response on page
  */
 
+//TODO: add $ to var names
 const submitButton = $("#submit-button");
 const clearButton = $("#clear-button");
 submitButton.on("click", getAndDisplayGif);
@@ -20,7 +23,8 @@ async function getAndDisplayGif(evt) {
   const gif = await getGif();
   displayGif(gif);
 }
-
+//TODO: make API key to global constant
+//TODO: save base url to global constant
 /** Grabs search input from form and fetch gif data from giphy. */
 async function getGif() {
   const searchInput = $("#search-input").val();
@@ -32,10 +36,14 @@ async function getGif() {
 
   const response = await fetch(`http://api.giphy.com/v1/gifs/search?${params}`);
   const gifData = await response.json();
+  console.log(gifData);
+  //TODO: change to gifUrl
   const gif = gifData.data[0].images.original.url;
   return gif;
 }
 
+//TODO: gif container to global constant
+//TODO: add $ to image variable name
 /** Takes url for gif and display gif in DOM. */
 function displayGif(gif) {
   const image = $("<img>");
