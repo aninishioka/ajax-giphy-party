@@ -11,6 +11,9 @@ console.log("Let's get this party started!");
  * put response on page
  */
 
+const GIF_LIMIT = "5";
+const GIPHY_API_KEY = "BdtCGyMWhBe2CpRs68q8DzWVZabQi9j5"
+
 //TODO: add $ to var names
 const submitButton = $("#submit-button");
 const clearButton = $("#clear-button");
@@ -30,16 +33,18 @@ async function getGif() {
   const searchInput = $("#search-input").val();
   const params = new URLSearchParams({
     q: searchInput,
-    limit: "1",
-    api_key: "BdtCGyMWhBe2CpRs68q8DzWVZabQi9j5"
+    limit: GIF_LIMIT,
+    api_key: GIPHY_API_KEY
   });
 
   const response = await fetch(`http://api.giphy.com/v1/gifs/search?${params}`);
   const gifData = await response.json();
   console.log(gifData);
   //TODO: change to gifUrl
-  const gif = gifData.data[0].images.original.url;
-  return gif;
+  const gifArray = gifData.data.map(gif => gif.images.original.url);
+  const gifUrlIndex = Math.round(Math.random() * 4);
+  console.log(gifUrlIndex);
+  return gifArray[gifUrlIndex];
 }
 
 //TODO: gif container to global constant
